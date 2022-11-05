@@ -1,21 +1,21 @@
 import React from "react";
-import '@celo/react-celo/lib/styles.css';
+import "@celo/react-celo/lib/styles.css";
 import { SnackbarProvider } from "notistack";
 import { ApolloProvider } from "@apollo/client";
 import client from "@/apollo-client";
 import { Alfajores, CeloProvider } from "@celo/react-celo";
 import { AppProps } from "next/app";
 import { CustomThemeProvider } from "@/contexts/userTheme";
-import { Provider } from "react-redux"
-import store from "@/state/index"
-import AppUpdater from "@/state/app/updater"
+import { Provider } from "react-redux";
+import store from "@/state/index";
+import AppUpdater from "@/state/app/updater";
 
 function Updaters() {
   return (
     <>
       <AppUpdater />
     </>
-  )
+  );
 }
 
 function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
             url: "https://celo-composer.netlify.app/",
             icon: "https://celo-composer.netlify.app/favicon.ico",
           }}
-          network={Alfajores}
+          defaultNetwork="Alfajores"
           // networks={[Mainnet, Alfajores]}
         >
           <SnackbarProvider
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
               horizontal: "right",
             }}
           >
-            <Updaters/>
+            <Updaters />
             <ApolloProvider client={client}>
               <div suppressHydrationWarning>
                 {typeof window === "undefined" ? null : (

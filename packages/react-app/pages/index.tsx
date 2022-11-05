@@ -11,6 +11,7 @@ import AppLayout from "@/components/layout/AppLayout";
 import { useEffect } from "react";
 import { ContractLayout } from "@/components/contract-components";
 import Grid from "@mui/material/Grid";
+import { GratitudeContract } from "../components/GratitudeContract";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -27,13 +28,16 @@ export default function App() {
     setValue(newValue);
   };
 
-  const contracts = deployedContracts[network?.chainId?.toString()][0]?.contracts;
+  const contracts =
+    deployedContracts[network?.chainId?.toString()][0]?.contracts;
+
   // To use Truffle, Uncomment the below line and comment the  line above
   // const contracts = [deployedContracts];
 
   //Here we create config to watch
   //all events of contract we ever deployed
   useEffect(() => {
+    console.log("contracts: ", contracts);
     if (contracts) {
       let configList = [];
       for (const contract in contracts) {
@@ -42,7 +46,7 @@ export default function App() {
           abi: contracts[contract].abi,
           // address: contracts[contract].address,
           // To use Truffle, Uncomment the below line and comment the above line
-          address: contracts[contract].networks[network?.chainId?.toString()].address ?? "44787",
+          address: contracts[contract].address ?? "44787",
         });
       }
 
@@ -71,6 +75,12 @@ export default function App() {
       );
     });
   }
+
+  return (
+    <div>
+      <GratitudeContract contractData={contracts["Gratitude"]} />
+    </div>
+  );
 
   return (
     <AppLayout title="Celo Starter" description="Celo Starter">
